@@ -1,0 +1,27 @@
+files:
+  current_file: "./data/current_file.csv"
+  last_file: "./data/last_file.csv"
+
+use_google_sheet: false
+google_sheets:
+  spreadsheet_id: "1blbxEA0_jgBgc_UPxf65xcboSxF3WrNyrhcDvxl8Xys"
+  worksheet_name: "Sheet1"
+  service_account_json_path: "./data/service_account.json"
+
+use_slack: false
+slack:
+  username: "SiteScentry"
+  emoji: ":sunglasses:"
+  channel: "#fail-log"
+  webhook: "CHANGE_ME"
+
+certificate:
+  warning_days: 3
+
+proxyDict: ""
+#proxyDict:
+#  http: "http://1.1.1.1:3128/"
+#  https: "http://1.1.1.1:3128/"
+#  ftp: "http://1.1.1.1:3128/"
+
+

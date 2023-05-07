@@ -1,0 +1,19 @@
+---
+- hosts: all
+  become: yes
+  vars:
+    ansible_python_interpreter: "/usr/bin/python3"
+  tasks:
+    - name: put project to controller
+      tags:
+        - deploy
+      synchronize:
+        src: ./
+        dest: "/opt/SiteSentry"
+    - name: Add cronjob to run check_certSficate_expiry every 24 hours
+      cron:
+        name: "check_certificate_expiry"
+        minute: "0"
+        hour: "0"
+        job: "python3 /opt/CertCentry/check_certificate_expiry.py"
+        state: present

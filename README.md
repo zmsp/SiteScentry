@@ -1,0 +1,2 @@
+## About this tool
+This script is a Python script that checks the expiration date of SSL/TLS certificates for a list of URLs. It can also download a list of URLs from a Google Sheet and compare it with the previous version to notify if any changes were made.
