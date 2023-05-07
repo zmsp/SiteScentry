@@ -1,6 +1,9 @@
 # About this tool
 This script is a Python script that checks the expiration date of SSL/TLS certificates for a list of URLs. It can also download a list of URLs from a Google Sheet and compare it with the previous version to notify if any changes were made.
 
+The app can also send slack notification when cert expires. Or warn when it's close to expiring.
+![Screenshot of my app](screenshots/screenshot.png)
+
 ## Quick Start
 1. Install requirements by running `pip3 install -r requiremetns.txt`
 2. Update the `config.yaml` as needed
