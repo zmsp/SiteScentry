@@ -1,12 +1,12 @@
 files:
-  current_file: "./data/current_file.csv"
-  last_file: "./data/last_file.csv"
+  current_file: "data/current_file.csv" ## "file in data directory"
+  last_file: "data/last_file.csv" ## "file in data directory"
 
 use_google_sheet: false
 google_sheets:
   spreadsheet_id: "1blbxEA0_jgBgc_UPxf65xcboSxF3WrNyrhcDvxl8Xys"
   worksheet_name: "Sheet1"
-  service_account_json_path: "./data/service_account.json"
+  service_account_json_path: "data/service_account.json"
 
 use_slack: false
 slack:

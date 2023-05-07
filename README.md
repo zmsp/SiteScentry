@@ -6,6 +6,14 @@ This script is a Python script that checks the expiration date of SSL/TLS certif
 2. Update the `config.yaml` as needed
 3. Use the ansible playbook to setup cronjob to run this tool on a schedule.
 
+```bash
+pip3 install ansible
+
+ansible-playbook -i  192.168.64.15, -u ubuntu --become  ./playbook.yml  -vv
+
+
+```
+
 If there are any issues, reach out to @zmsp
 
 

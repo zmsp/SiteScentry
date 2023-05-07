@@ -9,7 +9,7 @@ import OpenSSL.crypto
 import gspread
 import requests
 import yaml
-
+import os
 
 # configure logging
 import logging
@@ -18,16 +18,20 @@ logging.basicConfig(
     level=logging.INFO,
     format="%(asctime)s [%(levelname)s] %(message)s",
     handlers=[
-        logging.FileHandler("debug.log"),
+        logging.FileHandler("debug_SiteSentry.log"),
         logging.StreamHandler()
     ]
 )
 logger = logging.getLogger()
 
 # read the configuration file
-with open('config.yaml', 'r') as f:
-    config = yaml.safe_load(f)
+script_dir = os.path.dirname(os.path.abspath(__file__))
 
+# Construct the absolute path of the config file
+config_path = os.path.join(script_dir, 'config.yaml')
+
+with open(config_path, 'r') as f:
+    config = yaml.safe_load(f)
 
 # extract google sheets information
 use_google_sheet = config['use_google_sheet']
@@ -35,7 +39,7 @@ google_sheets_config = config['google_sheets']
 spreadsheet_id = google_sheets_config['spreadsheet_id']
 worksheet_name = google_sheets_config['worksheet_name']
 
-service_account_json_path = google_sheets_config['service_account_json_path']
+service_account_json_path = os.path.join(script_dir, google_sheets_config['service_account_json_path'])
 
 # extract slack information
 use_slack = config['use_slack']
@@ -49,8 +53,8 @@ proxyDict = config["proxyDict"]
 # load file config
 files_config = config['files']
 
-current_file = files_config['current_file']
-last_file = files_config['last_file']
+current_file = os.path.join(script_dir, files_config['current_file'])
+last_file = os.path.join(script_dir, files_config['last_file'])
 
 certificate_config = config['certificate']
 warning_days = certificate_config['warning_days']
@@ -60,7 +64,7 @@ def check_certificate_expiry(list_file, warn_days):
     n_time = datetime.now()
     with open(list_file, 'r') as f:
         for line in f:
-            logger.info(f"checking {line}" )
+            logger.info(f"checking {line}")
             url_parts = urlparse(line.strip())
             try:
                 cert = ssl.get_server_certificate((url_parts.hostname, url_parts.port or 443))
@@ -124,8 +128,6 @@ def send_to_slack(message):
     Sends message to slack
     :param message:
     """
-
-
 
     if not use_slack:
         logger.info(message)

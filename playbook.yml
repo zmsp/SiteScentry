@@ -3,17 +3,43 @@
   become: yes
   vars:
     ansible_python_interpreter: "/usr/bin/python3"
+    app_dir: "/opt/SiteSentry"
   tasks:
     - name: put project to controller
       tags:
         - deploy
       synchronize:
         src: ./
-        dest: "/opt/SiteSentry"
+        dest: app_dir
+    - name: Install pip3
+      apt:
+        name: python3-pip
+        state: present
+    - name: Install requirements.txt
+      pip:
+        requirements: "{{  app_dir  }}/requirements.txt"
+        executable: pip3
+        state: present
+    - name: Add cronjob to run every 24 hours
+      cron:
+        name: "check_certificate_expiry"
+        minute: "0"
+        hour: "0"
+        job: "python3 {{ app_dir }} SiteSentry.py"
+        state: present
+
     - name: Add cronjob to run check_certSficate_expiry every 24 hours
       cron:
         name: "check_certificate_expiry"
         minute: "0"
         hour: "0"
-        job: "python3 /opt/CertCentry/check_certificate_expiry.py"
+        job: "python3 {{ app_dir }}/SiteSentry.py"
         state: present
+
+    - name: Execute Python script
+      shell: "python3 {{ app_dir }}/SiteSentry.py"
+      register: script_output
+
+    - name: Print output
+      debug:
+        var: script_output.stdout_lines
