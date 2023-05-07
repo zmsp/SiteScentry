@@ -1,5 +1,12 @@
-## About this tool
+# About this tool
 This script is a Python script that checks the expiration date of SSL/TLS certificates for a list of URLs. It can also download a list of URLs from a Google Sheet and compare it with the previous version to notify if any changes were made.
+
+## Quick Start
+1. Install requirements by running `pip3 install -r requiremetns.txt`
+2. Update the `config.yaml` as needed
+3. Use the ansible playbook to setup cronjob to run this tool on a schedule.
+
+If there are any issues, reach out to @zmsp
 
 
 
